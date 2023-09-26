@@ -9,7 +9,7 @@ function SignIn() {
 
     function doSignUp(event) {
         event.preventDefault();
-        const email = event.target.email.value;
+        const email = event.target.name.value;
         const password = event.target.password.value;
         createUserWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
@@ -48,10 +48,12 @@ function SignIn() {
             {signUpSuccess}
             <form onSubmit={doSignUp}>
                 <input
+                    required
                     type='text'
                     name='email'
                     placeholder="email" />
                 <input
+                    required
                     type="password"
                     name="password"
                     placeholder="password" />

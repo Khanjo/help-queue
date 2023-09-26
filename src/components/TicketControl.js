@@ -6,6 +6,7 @@ import EditTicketForm from "./EditTicketForm"
 import { db, auth } from "./../firebase";
 import { collection, addDoc, doc, updateDoc, onSnapshot, deleteDoc, query, orderBy } from "firebase/firestore";
 import { formatDistanceToNow } from "date-fns";
+import { ThemeContext } from "../context/theme-context";
 
 function TicketControl() {
     const [formVisibleOnPage, setFormVisibleOnPage] = useState(false);
@@ -106,6 +107,12 @@ function TicketControl() {
             </React.Fragment>
         )
     } else if (auth.currentUser != null) {
+        let theme = this.context;
+
+        const buttonStyles = {
+            backgroundColor: theme.buttonBackground,
+            color: theme.textColor,
+        }
         let currentlyVisibleState = null;
         let buttonText = null;
 
@@ -131,10 +138,12 @@ function TicketControl() {
         return (
             <React.Fragment>
                 {currentlyVisibleState}
-                {error ? null : <button onClick={handleClick}>{buttonText}</button>}
+                {error ? null : <button style={buttonStyles} onClick={handleClick}>{buttonText}</button>}
             </React.Fragment>
         );
     }
 }
+
+TicketControl.contextType = ThemeContext;
 
 export default TicketControl;
